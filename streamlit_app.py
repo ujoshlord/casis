@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 import base64
 import os
+import requests
 
 # Configuración inicial
 st.set_page_config(page_title="Dashboard del Proyecto", layout="wide", page_icon="📅")
@@ -53,13 +54,21 @@ for p in paginas:
 
 # FUNCIÓN: Renderizador de PDFs incrustado
 def mostrar_pdf(archivo_pdf):
-    if os.path.exists(archivo_pdf):
-        with open(archivo_pdf, "rb") as f:
-            base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-        pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="800" type="application/pdf"></iframe>'
-        st.markdown(pdf_display, unsafe_allow_html=True)
-    else:
-        st.warning(f"📄 No se encontró el archivo '{archivo_pdf}' en el directorio. Asegúrate de guardarlo junto a este script.")
+    # Reemplaza esta URL con la ruta RAW de tu propio repositorio
+    # Formato: https://raw.githubusercontent.com/<USUARIO>/<REPOSITORIO>/<RAMA>/<CARPETA>/
+    github_raw_base_url = "https://raw.githubusercontent.com/ujoshlord/casis/main/"
+    url_completa = github_raw_base_url + archivo_pdf
+    
+    try:
+        response = requests.get(url_completa)
+        if response.status_code == 200:
+            base64_pdf = base64.b64encode(response.content).decode('utf-8')
+            pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="800" type="application/pdf"></iframe>'
+            st.markdown(pdf_display, unsafe_allow_html=True)
+        else:
+            st.warning(f"📄 No se pudo descargar '{archivo_pdf}'. Código de estado: {response.status_code}. Verifica que el archivo exista en el repositorio.")
+    except Exception as e:
+        st.error(f"⚠️ Ocurrió un error al intentar conectar con GitHub: {e}")
 
 # PÁGINA 1: DIAGRAMA DE GANTT
 if st.session_state.pagina_actual == "Gantt":
