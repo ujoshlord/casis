@@ -6,7 +6,7 @@ import os
 import requests
 
 # Configuración inicial
-st.set_page_config(page_title="Dashboard del Proyecto", layout="wide", page_icon="📅")
+st.set_page_config(page_title="SCG-Transmetro", layout="wide", page_icon="https://instructure-uploads.s3.amazonaws.com/account_192470000000000001/attachments/1890/favicon.png")
 
 # Inicializar estado de sesión para la navegación
 if 'pagina_actual' not in st.session_state:
@@ -62,7 +62,7 @@ def mostrar_pdf(archivo_pdf):
         if response.status_code == 200:
             # 1. Botón nativo de descarga/apertura directa
             st.download_button(
-                label=f"📥 Descargar o abrir {archivo_pdf}",
+                label=f"Descargar o abrir {archivo_pdf}",
                 data=response.content,
                 file_name=archivo_pdf,
                 mime="application/pdf",
@@ -78,7 +78,7 @@ def mostrar_pdf(archivo_pdf):
                 unsafe_allow_html=True
             )
         else:
-            st.warning(f"📄 No se encontró el archivo '{archivo_pdf}' en GitHub (Error {response.status_code}).")
+            st.warning(f"Fase no alcanzada aun; Espere fechas segun cronograma (Gantt).")
     except Exception as e:
         st.error(f"⚠️ Error al obtener el PDF: {e}")
 
@@ -119,15 +119,14 @@ elif st.session_state.pagina_actual in df["Fase"].unique():
 
 # PÁGINA: IMÁGENES DEL PROYECTO
 elif st.session_state.pagina_actual == "Imágenes del Proyecto":
-    st.title("🖼️ Galería de Imágenes del Proyecto")
-    st.write("En esta sección puedes colocar pantallazos de la App Web (Demo), Diagramas Entidad-Relación y diagramas UML.")
+    st.title("Galería de Imágenes del Proyecto")
     
     cols = st.columns(2)
     with cols[0]:
         st.caption("Bus")
         st.image("https://www.guatemala.com/fotos/201607/Transmetro-885x500.jpg")
     with cols[1]:
-        st.caption("Otro bus jeje")
+        st.caption("Bus más grande")
         st.image("https://tse4.mm.bing.net/th/id/OIP.FGQkd92-764XcRrxWmff3gHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3")
         
     if st.button("⬅️ Volver al Gantt"):
