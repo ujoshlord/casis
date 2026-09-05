@@ -1,0 +1,17 @@
+Fase,Tarea,Inicio,Fin,PDF
+Fase 1: Actualidad,1 Carta de presentación personal,2026-08-20,2026-08-29,fase_1.pdf
+Fase 1: Actualidad,2 Antecedentes del problema,2026-08-20,2026-08-29,fase_1.pdf
+Fase 1: Actualidad,3 Definición de la situación actual,2026-08-20,2026-08-29,fase_1.pdf
+Fase 1: Actualidad,4 Deficiencias de controles actuales,2026-08-20,2026-08-29,fase_1.pdf
+Fase 1: Actualidad,5 Planificación,2026-08-20,2026-08-29,fase_1.pdf
+Fase 2: Requerimientos,6 Análisis de requerimientos,2026-08-30,2026-09-05,fase_2.pdf
+Fase 3: Propuesta,7 Estudios de Factibilidad,2026-09-06,2026-09-12,fase_3.pdf
+Fase 3: Propuesta,8 Propuesta monetaria de su solución,2026-09-06,2026-09-12,fase_3.pdf
+Fase 4: Esquema,9 Modelo Entidad Relación,2026-09-13,2026-09-26,fase_4.pdf
+Fase 4: Esquema,10 Script DB,2026-09-13,2026-09-26,fase_4.pdf
+Fase 4: Esquema,11 Diagramas UML completo,2026-09-13,2026-09-26,fase_4.pdf
+Fase 5: Arq. de Software,12 Presentación de Stack Tecnológico,2026-09-27,2026-10-03,fase_5.pdf
+Fase 6: Demo,13 Demo funcional - Aplicación web,2026-10-04,2026-10-10,fase_6.pdf
+Fase 7: Conclusiones,14 Plan de Pruebas,2026-10-11,2026-10-17,fase_7.pdf
+Fase 7: Conclusiones,15 Carta de Aceptación de proyecto,2026-10-11,2026-10-17,fase_7.pdf
+Fase 8: Entrega,16 Entrega Final,2026-10-18,2026-10-24,fase_8.pdf
