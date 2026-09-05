@@ -54,21 +54,33 @@ for p in paginas:
 
 # FUNCIÓN: Renderizador de PDFs incrustado
 def mostrar_pdf(archivo_pdf):
-    # Reemplaza esta URL con la ruta RAW de tu propio repositorio
-    # Formato: https://raw.githubusercontent.com/<USUARIO>/<REPOSITORIO>/<RAMA>/<CARPETA>/
-    github_raw_base_url = "https://raw.githubusercontent.com/ujoshlord/casis/main/"
-    url_completa = github_raw_base_url + archivo_pdf
+    # Enlace RAW directo a tu repositorio de GitHub
+    url_raw = f"https://raw.githubusercontent.com/ujoshlord/casis/main/{archivo_pdf}"
     
     try:
-        response = requests.get(url_completa)
+        response = requests.get(url_raw)
         if response.status_code == 200:
-            base64_pdf = base64.b64encode(response.content).decode('utf-8')
-            pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="800" type="application/pdf"></iframe>'
-            st.markdown(pdf_display, unsafe_allow_html=True)
+            # 1. Botón nativo de descarga/apertura directa
+            st.download_button(
+                label=f"📥 Descargar o abrir {archivo_pdf}",
+                data=response.content,
+                file_name=archivo_pdf,
+                mime="application/pdf",
+                use_container_width=True
+            )
+            
+            # 2. Renderizado mediante el visor web universal de PDF.js (sin restricciones de Edge)
+            pdf_url_encoded = requests.utils.quote(url_raw, safe='')
+            viewer_url = f"https://mozilla.github.io/pdf.js/web/viewer.html?file={pdf_url_encoded}"
+            
+            st.markdown(
+                f'<iframe src="{viewer_url}" width="100%" height="800" style="border: none;"></iframe>',
+                unsafe_allow_html=True
+            )
         else:
-            st.warning(f"📄 No se pudo descargar '{archivo_pdf}'. Código de estado: {response.status_code}. Verifica que el archivo exista en el repositorio.")
+            st.warning(f"📄 No se encontró el archivo '{archivo_pdf}' en GitHub (Error {response.status_code}).")
     except Exception as e:
-        st.error(f"⚠️ Ocurrió un error al intentar conectar con GitHub: {e}")
+        st.error(f"⚠️ Error al obtener el PDF: {e}")
 
 # PÁGINA 1: DIAGRAMA DE GANTT
 if st.session_state.pagina_actual == "Gantt":
